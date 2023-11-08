@@ -12,14 +12,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login);
+        setContentView(R.layout.items);
     }
-   /* public void onclickRegister (View view) {
-        EditText FirstName = findViewById(R.id.FirstNameInput);
-        EditText LastName = findViewById(R.id.LastNameInput);
-        TextView txtFirstname = findViewById(R.id.txtFirstname);
-        TextView txtLastName =  findViewById(R.id.txtLastName);
-        txtFirstname.setText("FirstName: "+ FirstName.getText().toString());
-        txtLastName.setText("LastName: " + LastName.getText().toString());
-    }*/
+
 }
