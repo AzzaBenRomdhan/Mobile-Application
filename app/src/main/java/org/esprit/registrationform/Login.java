@@ -8,13 +8,19 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 
+import org.esprit.registrationform.database.Appdatabase;
+import org.esprit.registrationform.entities.User;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Login extends AppCompatActivity {
     SharedPreferences myPref;
     public static final String PREF ="MyPref";
     Button save,clear ;
     EditText email , password ;
     private Appdatabase database ;
-    private List<User> userList = new ArrayList<User>();
+    private List<User> userList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +42,7 @@ public class Login extends AppCompatActivity {
 
 
         save.setOnClickListener(e->{
-          /*   editor.putString("login",login.getText().toString());
+          /*   editor.putString("email",email.getText().toString());
              editor.putString("pwd",password.getText().toString());
              editor.commit();
 */
