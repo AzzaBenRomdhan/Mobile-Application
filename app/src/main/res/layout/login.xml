@@ -47,12 +47,12 @@
         app:layout_constraintVertical_bias="0.611" />
 
     <Button
-        android:id="@+id/button6"
+        android:id="@+id/buttonClear"
         android:layout_width="303dp"
         android:layout_height="38dp"
         android:backgroundTint="@color/rose"
         android:fontFamily="@font/fredoka_one"
-        android:text="Register"
+        android:text="Clear"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.472"
@@ -61,7 +61,7 @@
         app:layout_constraintVertical_bias="0.906" />
 
     <Button
-        android:id="@+id/button8"
+        android:id="@+id/buttonSave"
         android:layout_width="303dp"
         android:layout_height="38dp"
         android:backgroundTint="@color/rose"
@@ -75,20 +75,19 @@
         app:layout_constraintVertical_bias="0.812" />
 
     <EditText
-        android:id="@+id/editTextTextPassword2"
-        android:layout_width="308dp"
-        android:layout_height="65dp"
+        android:id="@+id/pwd"
+        android:layout_width="303dp"
+        android:layout_height="57dp"
         android:ems="10"
         android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.681" />
+        app:layout_constraintVertical_bias="0.691" />
 
     <EditText
-        android:id="@+id/editTextTextEmailAddress2"
+        android:id="@+id/email"
         android:layout_width="307dp"
         android:layout_height="53dp"
         android:ems="10"
@@ -107,7 +106,7 @@
         app:layout_constraintHorizontal_bias="0.076"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.674"
+        app:layout_constraintVertical_bias="0.686"
         app:srcCompat="@drawable/mail" />
 
     <ImageView
