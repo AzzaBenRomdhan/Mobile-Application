@@ -1,31 +1,29 @@
 package org.esprit.registrationform;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 public class HomeActivity extends AppCompatActivity {
-  //  TextView tv ;
     Button btn_shop_product;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
-      //  tv= findViewById(R.id.email);
-       // shared = getSharedPreferences(Login.PREF,MODE_PRIVATE);
 
+        // Retrieve user's name from Intent
+        String userName = getIntent().getStringExtra("USER_NAME");
 
-     //   tv.setText(shared.getString("EMAIL","5555"));
+        // Update the TextView with the user's name
+        TextView hiSalmaTextView = findViewById(R.id.email);
+        hiSalmaTextView.setText("Hi " + userName);
 
-        //redirection lil page products
+        // Redirect to the products page
         btn_shop_product = findViewById(R.id.btn_shop_product);
         btn_shop_product.setOnClickListener(new View.OnClickListener() {
             @Override
