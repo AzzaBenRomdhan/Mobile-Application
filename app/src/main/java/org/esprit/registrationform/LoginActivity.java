@@ -57,36 +57,5 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
-
-        // Inside your LoginActivity
-        TextView forgotPassword = findViewById(R.id.forgotPassword);
-        forgotPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Get the user's email (assuming you have an email field in your layout)
-                String userEmail = username.getText().toString();
-
-                // Check if the email exists in the database
-                if (DB.checkEmailExists(userEmail)) {
-                    // Generate a temporary password (you may use a more secure method)
-                    String temporaryPassword = generateTemporaryPassword();
-
-                    // Update the user's password in the database
-                    DB.updatePassword(userEmail, temporaryPassword);
-
-                    // Provide feedback to the user
-                    Toast.makeText(LoginActivity.this, "Temporary password sent to your email. Use it to login.", Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(LoginActivity.this, "Email not found. Please enter a valid email address.", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
-
-    // Method to generate a temporary password (you may use a more secure method)
-    private String generateTemporaryPassword() {
-        // Your password generation logic here
-        // Example: return UUID.randomUUID().toString().substring(0, 8);
-        return "tempPassword";  // Placeholder example, replace with your logic
     }
 }
