@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 public class MyDataBaseHelper extends SQLiteOpenHelper {
     private Context context;
     private static final String DATABASE_NAME= "Pet.db";
-    private static final int DATABASE_VERSION= 3;
+    private static final int DATABASE_VERSION= 4;
     private static final String TABLE_NAME= "my_Product";
     private static final String COLUMN_ID="_id";
     private static final String COLUMN_TITLE="product_title";
@@ -72,6 +72,20 @@ public Boolean insertData(String username, String password){
             return true;
         else
             return false;
+    }
+    // salma
+    public Boolean checkEmailExists(String email) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM users WHERE username = ?", new String[]{email});
+        return cursor.getCount() > 0;
+    }
+
+    // salma
+    public void updatePassword(String email, String newPassword) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("password", newPassword);
+        db.update("users", contentValues, "username = ?", new String[]{email});
     }
     void  addProduct(String title, String description, String price){
         SQLiteDatabase db = this.getWritableDatabase();
