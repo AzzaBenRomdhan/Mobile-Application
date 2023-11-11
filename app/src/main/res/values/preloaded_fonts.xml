@@ -6,5 +6,7 @@
         <item>@font/abhaya_libre</item>
         <item>@font/abhaya_libre_bold</item>
         <item>@font/fredoka_one</item>
+        <item>@font/poppins_light</item>
+        <item>@font/poppins_semibold</item>
     </array>
 </resources>

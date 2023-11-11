@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 public class my_itemActivity extends AppCompatActivity {
-Button buy_now;
+    Button buy_now;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

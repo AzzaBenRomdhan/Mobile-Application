@@ -1,21 +1,26 @@
 package org.esprit.registrationform;
 
+import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class MyDataBaseHelper extends SQLiteOpenHelper {
     private Context context;
     private static final String DATABASE_NAME= "Pet.db";
-    private static final int DATABASE_VERSION= 50;
+    private static final int DATABASE_VERSION= 90;
     private static final String TABLE_NAME= "my_Product";
     //sirirne
     public static final String TABLE_NAME_PET = "add_pet";
@@ -23,7 +28,36 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_TITLE="product_title";
     private static final String COLUMN_DESCRIPTION="Description";
     private static final String COLUMN_PRICE= "price";
+    /********************** suite Azza **************************/
+    // Ajouter une nouvelle table pour le panier
+    public static final String TABLE_NAME_CART = "cart";
+    public static final String COLUMN_CART_ID = "_id";
+    public static final String COLUMN_CART_PRODUCT_TITLE = "product_title";
+    public static final String COLUMN_CART_DESCRIPTION = "description";
+    public static final String COLUMN_CART_PRICE = "price";
+    public static final String COLUMN_CART_QUANTITY = "quantity";
+    /********************** suite Azza **************************/
+// farouk
+// Table pour les réservations
+public static final String TABLE_NAME_RESERVATION = "add_reservation";
+    public static final String COLUMN_RESERVATION_ID = "_id";
+   // public static final String COLUMN_PET_NAME = "PetName";
+    public static final String COLUMN_RESERVATION_DATE_DEBUT = "startDate";
+    public static final String COLUMN_RESERVATION_DATE_FIN = "endDate";
+    //   public static final String COLUMN_RESERVATION_TIME = "ReservationTime";
+    public static final String COLUMN_DAYCARE_NAME = "DaycareName";
+    public static final String COLUMN_DAYCARE_DESCRIPTION = "DaycareDescription";
+    public static final String COLUMN_DAYCARE_PRICE = "DaycarePrice";
 
+    //
+    //farouk
+// Table pour les réservations
+    public static final String TABLE_NAME_DAYCARE_RESERVATION = "daycare_reservations";
+    public static final String COLUMN_DAYCARE_ID = "_id";
+    public static final String COLUMN_DAYCARE1_NAME = "daycare_name";
+    public static final String COLUMN_PET_NAME_1 = "pet_name";
+    public static final String COLUMN_START_DATE = "start_date";
+    public static final String COLUMN_END_DATE = "end_date";
     //sirine
     // Nouvelle table comment
     public static final String TABLE_NAME_COMMENTAIRE = "add_commentaire";
@@ -39,6 +73,12 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_COLORPET = "Color";
     public static final String COLUMN_HEIGHTPET = "Height";
     public static final String COLUMN_WEIGHTPET = "Weight";
+    //salma
+    public static final String TABLE_USERS = "users";
+    public static final String COLUMN_USERNAME = "username";
+    public static final String COLUMN_EMAIL = "email";
+    public static final String COLUMN_PASSWORD = "password";
+
 
     public MyDataBaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME,null, DATABASE_VERSION);
@@ -51,7 +91,10 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
         COLUMN_TITLE + " TEXT, " + COLUMN_DESCRIPTION + " TEXT, " + COLUMN_PRICE + " TEXT );";
         db.execSQL(query);
         // salma
-        String query2 = "CREATE TABLE users (username TEXT PRIMARY KEY, password TEXT);";
+        String query2 = "CREATE TABLE " + TABLE_USERS + " (" +
+                COLUMN_USERNAME + " TEXT PRIMARY KEY, " +
+                COLUMN_PASSWORD + " TEXT, " +
+                COLUMN_EMAIL + " TEXT);";
         db.execSQL(query2);
         //Sirine
         String query1 = "CREATE TABLE " + TABLE_NAME_PET + " (" + COLUMN_ID_PET + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -69,30 +112,65 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
                 COLUMN_COMMENTAIRE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_COMMENTAIRE_TEXT + " TEXT);";
         db.execSQL(queryCommentaire);
+        //farouk
+        // Ajouter cette partie pour créer la table des réservations
+        String queryReservation = "CREATE TABLE " + TABLE_NAME_RESERVATION + " (" +
+                COLUMN_RESERVATION_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                //   COLUMN_PET_NAME + " TEXT, " +
+                //   COLUMN_RESERVATION_DATE + " TEXT, " +
+                //    COLUMN_RESERVATION_TIME + " TEXT, " +
+                COLUMN_DAYCARE_NAME + " TEXT, " +
+                COLUMN_DAYCARE_DESCRIPTION + " TEXT, " +
+                COLUMN_DAYCARE_PRICE + " REAL);";
+        db.execSQL(queryReservation);
+        //farouk
+        // Ajouter cette partie pour créer la table des réservations de garderie
+        String queryDaycareReservation = "CREATE TABLE " + TABLE_NAME_DAYCARE_RESERVATION + " (" +
+                COLUMN_RESERVATION_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_DAYCARE_NAME + " TEXT, " +
+                COLUMN_PET_NAME_1 + " TEXT, " +
+                COLUMN_START_DATE + " TEXT, " +
+                COLUMN_END_DATE + " TEXT);";
+        db.execSQL(queryDaycareReservation);
+
+        /********************** suite Azza **************************/
+        String queryCart = "CREATE TABLE " + TABLE_NAME_CART + " (" +
+                COLUMN_CART_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_CART_PRODUCT_TITLE + " TEXT, " +
+                COLUMN_CART_DESCRIPTION + " TEXT, " +
+                COLUMN_CART_PRICE + " INTEGER, " +
+                COLUMN_CART_QUANTITY + " INTEGER);";
+        db.execSQL(queryCart);
     }
+
+
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         db.execSQL("DROP TABLE IF EXISTS "+ TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_NAME_CART);
         //salma
         db.execSQL("drop Table if exists users");
         //sirine
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_PET);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_COMMENTAIRE);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_RESERVATION);
         onCreate(db);
     }
 
 // salma
-public Boolean insertData(String username, String password){
+public boolean insertData(String username, String password, String email) {
     SQLiteDatabase db = this.getWritableDatabase();
-    ContentValues contentValues= new ContentValues();
-    contentValues.put("username", username);
-    contentValues.put("password", password);
-    long result = db.insert("users", null, contentValues);
-    if(result==-1) return false;
-    else
-        return true;
+    ContentValues contentValues = new ContentValues();
+    contentValues.put(COLUMN_USERNAME, username);
+    contentValues.put(COLUMN_PASSWORD, password);
+    contentValues.put(COLUMN_EMAIL, email);
+    return db.insert(TABLE_USERS, null, contentValues) != -1;
 }
+
+//salma
+
 //salma
     public Boolean checkusername(String username) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -101,6 +179,15 @@ public Boolean insertData(String username, String password){
             return true;
         else
             return false;
+    }
+    //salma
+    // Function to delete a user account based on the username
+    public void deleteAccount(String username) {
+        Log.d("DeleteAccount", "Deleting account from database: " + username);  // Add this log statement
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("users", "username=?", new String[]{username});
+        db.close();
     }
 
     //salma
@@ -195,6 +282,16 @@ public Boolean insertData(String username, String password){
         }
         return cursor;
     }
+    //salma
+    Cursor readAlldataUser() {
+        String query = "SELECT * FROM " + TABLE_USERS;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = null;
+        if (db != null) {
+            cursor = db.rawQuery(query, null);
+        }
+        return cursor;
+    }
 
     Cursor readAllCommentaires() {
         String query = "SELECT * FROM " + TABLE_NAME_COMMENTAIRE;
@@ -224,6 +321,202 @@ public Boolean insertData(String username, String password){
 
         db.close();
     }
+    //salma
+    // Update user information in the database
+    public void updateProfile(String currentUsername, String newName, String newMail, String newPwd) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_USERNAME, newName);
+        values.put(COLUMN_EMAIL, newMail);
+        values.put(COLUMN_PASSWORD, newPwd);
+
+        String whereClause = COLUMN_USERNAME + "=?";
+        String[] whereArgs = {currentUsername}; // Use the current username as the selection argument
+
+        // Update the user in the database
+        int rowsAffected = db.update(TABLE_USERS, values, whereClause, whereArgs);
+
+        // Check if the update was successful
+        if (rowsAffected > 0) {
+            Toast.makeText(context, "User updated successfully", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "Failed to update user", Toast.LENGTH_SHORT).show();
+        }
+
+        db.close();
+    }
+
+    /********************** suite Azza **************************/
+    public void addToCart(String productTitle, String description, String price, int quantity) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN_CART_PRODUCT_TITLE, productTitle);
+        cv.put(COLUMN_CART_DESCRIPTION, description);
+        cv.put(COLUMN_CART_PRICE, price);
+        cv.put(COLUMN_CART_QUANTITY, quantity);
+
+        long result = db.insert(TABLE_NAME_CART, null, cv);
+
+        if (result == -1) {
+            Toast.makeText(context, "Failed to add product to cart", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "Product added to cart successfully", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    Cursor readAlldataCart() {
+        String query= "SELECT * FROM " + TABLE_NAME_CART;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor= null;
+        if(db != null){
+            cursor = db.rawQuery(query, null);
+        }
+        return cursor;
+    }
+
+    //farouk
+public void addDaycareReservation(String daycareName, String daycareDescription, double daycarePrice) {
+    SQLiteDatabase db = this.getWritableDatabase();
+    ContentValues cv = new ContentValues();
+    //  cv.put(COLUMN_PET_NAME, petName);
+    //   cv.put(COLUMN_RESERVATION_DATE, reservationDate);
+    // cv.put(COLUMN_RESERVATION_TIME, reservationTime);
+    cv.put(COLUMN_DAYCARE_NAME, daycareName);
+    cv.put(COLUMN_DAYCARE_DESCRIPTION, daycareDescription);
+    cv.put(COLUMN_DAYCARE_PRICE, daycarePrice);
+    long result = db.insert(TABLE_NAME_RESERVATION, null, cv);
+    if (result == -1) {
+        Toast.makeText(context, "Failed to add daycare reservation", Toast.LENGTH_SHORT).show();
+    } else {
+        Toast.makeText(context, "Daycare reservation added successfully", Toast.LENGTH_SHORT).show();
+    }
+}
+    // Function to add daycare reservation to the database
+    public void addDaycare(String dayCare, String animalName, String startDate, String endDate) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN_DAYCARE_NAME, dayCare);
+        cv.put(COLUMN_PET_NAME_1, animalName);
+        cv.put(COLUMN_START_DATE, startDate);
+        cv.put(COLUMN_END_DATE, endDate);
+
+        // Add the reservation to the database
+        long result = db.insert(TABLE_NAME_DAYCARE_RESERVATION, null, cv);
+
+        // Check if the operation was successful
+        if (result == -1) {
+
+        } else {
+            Toast.makeText(context, "Daycare reservation added successfully", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    Cursor readAlldataDayCare() {
+        String query = "SELECT * FROM " + TABLE_NAME;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = null;
+        if (db != null) {
+            cursor = db.rawQuery(query, null);
+        }
+        return cursor;
+    }
+    public Cursor getAllReservations() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.query(TABLE_NAME_RESERVATION, null, null, null, null, null, null);
+    }
+
+    // Méthode pour récupérer toutes les réservations de garderie
+    public Cursor getAllDaycareReservations() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.query(TABLE_NAME_DAYCARE_RESERVATION, null, null, null, null, null, null);
+    }
+
+
+    public void updateReservation(int reservationId, String newDate, String newDayCareName) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();values.put(COLUMN_DAYCARE_NAME, newDayCareName);
+        values.put(COLUMN_DAYCARE_PRICE, newDate);
+
+
+        String whereClause = COLUMN_RESERVATION_ID + "=?";
+        String[] whereArgs = {String.valueOf(reservationId)};
+
+        // Assurez-vous d'utiliser le bon nom de table dans la méthode update
+        db.update(TABLE_NAME_RESERVATION, values, whereClause, whereArgs);
+
+        db.close();
+    }
+
+
+
+    // Méthode pour supprimer une réservation
+    public void deleteReservation(int reservationId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME_RESERVATION, COLUMN_RESERVATION_ID + "=?", new String[]{String.valueOf(reservationId)});
+        db.close();
+    }
+
+    public ArrayList<String> getAllComments() {
+        ArrayList<String> commentsList = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // Correction ici, utilisez le bon nom de table
+        String selectQuery = "SELECT * FROM " + TABLE_NAME_COMMENTAIRE;
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // Parcourir le curseur et ajouter les commentaires à la liste
+        if (cursor.moveToFirst()) {
+            do {
+                // Correction ici, utilisez la bonne colonne
+                String comment = cursor.getString(cursor.getColumnIndex(COLUMN_COMMENTAIRE_TEXT));
+                commentsList.add(comment);
+            } while (cursor.moveToNext());
+        }
+
+        // Fermer le curseur
+        cursor.close();
+
+        // Fermer la base de données
+        db.close();
+
+        return commentsList;
+    }
+    public void deleteComment(String comment) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // Utilisez la méthode delete avec la clause where directement
+        int rowsDeleted = db.delete(TABLE_NAME_COMMENTAIRE, COLUMN_COMMENTAIRE_TEXT + "=?", new String[]{comment});
+
+        // Ajoutez des journaux pour déboguer
+        Log.d("MyDataBaseHelper", "Deleting comment: " + comment);
+        Log.d("MyDataBaseHelper", "Rows deleted: " + rowsDeleted);
+
+        db.close();
+    }
+    public void updateComment(String oldComment, String newComment) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_COMMENTAIRE_TEXT, newComment);
+
+        String whereClause = COLUMN_COMMENTAIRE_TEXT + "=?";
+        String[] whereArgs = {oldComment};
+
+        // Utilisez la méthode update pour mettre à jour le commentaire
+        int rowsUpdated = db.update(TABLE_NAME_COMMENTAIRE, values, whereClause, whereArgs);
+
+        // Ajoutez des journaux pour déboguer
+        Log.d("MyDataBaseHelper", "Updating comment: " + oldComment + " to " + newComment);
+        Log.d("MyDataBaseHelper", "Rows updated: " + rowsUpdated);
+
+        db.close();
+    }
 
 
 }
+
+

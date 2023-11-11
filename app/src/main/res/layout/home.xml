@@ -16,7 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.034"
-        app:srcCompat="@drawable/profile" />
+        app:srcCompat="@drawable/profile2" />
 
     <TextView
         android:id="@+id/email"
@@ -40,107 +40,174 @@
         android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.256"
+        app:layout_constraintHorizontal_bias="0.288"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.079" />
+        app:layout_constraintVertical_bias="0.069" />
 
     <Button
         android:id="@+id/btn_shop_product"
-        android:layout_width="81dp"
-        android:layout_height="31dp"
+        android:layout_width="79dp"
+        android:layout_height="28dp"
         android:layout_marginStart="15dp"
+        android:background="#FFFFFF"
+        android:fontFamily="@font/fredoka_one"
         android:text="shopping"
-        android:textSize="10sp"
+        android:textSize="11sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.003"
+        app:layout_constraintHorizontal_bias="0.138"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.132" />
+        app:layout_constraintVertical_bias="0.537" />
 
     <Button
         android:id="@+id/add_pet_btn"
-        android:layout_width="83dp"
-        android:layout_height="39dp"
-        android:text="add pet"
+        android:layout_width="28dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="3sp"
+        android:layout_marginRight="10sp"
+        android:background="?android:attr/selectableItemBackground"
+        android:text="+"
+
+        android:textColor="#FFC800"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.439"
+        app:layout_constraintHorizontal_bias="0.216"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.216" />
+        app:layout_constraintVertical_bias="0.197" />
 
     <Button
         android:id="@+id/rating_btn"
-        android:layout_width="78dp"
-        android:layout_height="41dp"
+        android:layout_width="71dp"
+        android:layout_height="30dp"
+        android:background="#F1FFE3"
         android:text="rating"
+        android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.639"
+        app:layout_constraintHorizontal_bias="0.208"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.128" />
+        app:layout_constraintVertical_bias="0.92" />
 
     <Button
         android:id="@+id/comment_btn"
-        android:layout_width="94dp"
-        android:layout_height="41dp"
+        android:layout_width="91dp"
+        android:layout_height="35dp"
+        android:background="#E7E3FF"
         android:text="comment"
+        android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.949"
+        app:layout_constraintHorizontal_bias="0.706"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.127" />
+        app:layout_constraintVertical_bias="0.926" />
 
     <Button
         android:id="@+id/daycare_btn"
-        android:layout_width="83dp"
-        android:layout_height="34dp"
+        android:layout_width="67dp"
+        android:layout_height="28dp"
+        android:background="#E8F7FE"
         android:text="daycare"
+        android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.359"
+        app:layout_constraintHorizontal_bias="0.171"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.133" />
+        app:layout_constraintVertical_bias="0.475" />
 
     <Button
         android:id="@+id/ajout_product_btn"
-        android:layout_width="116dp"
-        android:layout_height="53dp"
+        android:layout_width="81dp"
+        android:layout_height="24dp"
+        android:background="#F1E19C"
         android:text="add product"
+        android:textSize="11sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.054"
+        app:layout_constraintHorizontal_bias="0.463"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.221" />
+        app:layout_constraintVertical_bias="0.661" />
 
     <Button
         android:id="@+id/add_daycare"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="94dp"
+        android:layout_height="25dp"
+        android:background="#EAF9F2"
         android:text="add daycare"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.846"
+        app:layout_constraintHorizontal_bias="0.738"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.219" />
+        app:layout_constraintVertical_bias="0.477" />
 
     <Button
-        android:id="@+id/edit_profile_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/profile_btn"
+        android:layout_width="68dp"
+        android:layout_height="29dp"
+        android:background="@color/rose"
         android:text="edit profile"
+        android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.891"
+        app:layout_constraintHorizontal_bias="0.813"
         app:layout_constraintStart_toEndOf="@+id/email"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023" />
+        app:layout_constraintVertical_bias="0.034" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="524dp"
+        android:layout_height="96dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.619"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.14"
+        app:srcCompat="@drawable/addpet1" />
+
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="399dp"
+        android:layout_height="154dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.36"
+        app:srcCompat="@drawable/daycareproduct" />
+
+    <ImageView
+        android:id="@+id/imageView27"
+        android:layout_width="474dp"
+        android:layout_height="108dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.64"
+        app:srcCompat="@drawable/produt11" />
+
+    <ImageView
+        android:id="@+id/imageView30"
+        android:layout_width="413dp"
+        android:layout_height="160dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.952"
+        app:srcCompat="@drawable/review" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

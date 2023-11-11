@@ -1,6 +1,8 @@
 package org.esprit.registrationform;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -50,7 +52,7 @@ public class RegisterActivity extends AppCompatActivity {
                         } else if (pass.equals(repass)) {
                             Boolean checkuser = DB.checkusername(user);
                             if (checkuser == false) {
-                                Boolean insert = DB.insertData(user, pass);
+                                Boolean insert = DB.insertData(user, pass,userEmail);
                                 if (insert == true) {
                                     Toast.makeText(RegisterActivity.this, "Registered successfully", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
@@ -77,4 +79,15 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
+    public Boolean insertData(String username, String password, String email) {
+        SQLiteDatabase db = DB.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(MyDataBaseHelper.COLUMN_USERNAME, username);
+        contentValues.put(MyDataBaseHelper.COLUMN_PASSWORD, password);
+        contentValues.put(MyDataBaseHelper.COLUMN_EMAIL, email);
+        long result = db.insert(MyDataBaseHelper.TABLE_USERS, null, contentValues);
+        return result != -1;
+    }
+
+
 }

@@ -13,7 +13,28 @@
         android:theme="@style/Theme.RegistrationForm"
         tools:targetApi="31">
         <activity
-            android:name=".CartActivity"
+            android:name=".ReservationListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ReservationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CalendrierActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AfficheListCalenderActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ViewCommentsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".cart_item"
+            android:exported="false" />
+        <activity
+            android:name="CartActivity"
             android:exported="false" />
         <activity
             android:name=".my_itemActivity"
@@ -31,7 +52,7 @@
             android:name=".addProductActivity"
             android:exported="false" />
         <activity
-            android:name=".HomeActivity"
+            android:name=".RegisterActivity"
             android:exported="false" />
         <activity android:name=".RatingActivity" />
         <activity
@@ -42,9 +63,9 @@
             android:exported="false" />
         <activity
             android:name=".addPetActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
-            android:name=".RegisterActivity"
+            android:name=".HomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

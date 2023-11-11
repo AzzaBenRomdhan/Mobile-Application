@@ -20,6 +20,8 @@ public class addPetActivity extends AppCompatActivity {
         setContentView(R.layout.addpet);
 
         name_input = findViewById(R.id.editTextText4);
+       // name_input = findViewById(R.id.editTextText4);
+
         breed_input = findViewById(R.id.editTextText6);
         gender_input = findViewById(R.id.editTextText7);
         age_input = findViewById(R.id.editTextText8);

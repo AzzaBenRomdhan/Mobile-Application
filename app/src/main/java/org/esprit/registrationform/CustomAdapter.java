@@ -16,8 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class CustomAdapter extends RecyclerView .Adapter<CustomAdapter.MyViewHolder>{
-     Context context;
-     ArrayList   _id, product_title, Description, price, quantity;
+    Context context;
+    ArrayList   _id, product_title, Description, price, quantity;
     CustomAdapter customAdapter;
     Animation traslate_anim;
 
@@ -50,14 +50,14 @@ public class CustomAdapter extends RecyclerView .Adapter<CustomAdapter.MyViewHol
             public void onClick(View view) {
                 int itemPosition = holder.getAdapterPosition();
                 if (itemPosition != RecyclerView.NO_POSITION) {
-                Intent intent = new Intent(context, itemdetails_activity.class);
-                intent.putExtra("_id", String.valueOf(_id.get(position)));
-                intent.putExtra("product_title", String.valueOf(product_title.get(position)));
-                intent.putExtra("Description", String.valueOf(Description.get(position)));
-                intent.putExtra("price", String.valueOf(price.get(position)));
+                    Intent intent = new Intent(context, itemdetails_activity.class);
+                    intent.putExtra("_id", String.valueOf(_id.get(position)));
+                    intent.putExtra("product_title", String.valueOf(product_title.get(position)));
+                    intent.putExtra("Description", String.valueOf(Description.get(position)));
+                    intent.putExtra("price", String.valueOf(price.get(position)));
 
                     context.startActivity(intent);
-            }}
+                }}
         });
 
     }
