@@ -13,9 +13,11 @@
         android:theme="@style/Theme.RegistrationForm"
         tools:targetApi="31">
         <activity
+            android:name=".CartActivity"
+            android:exported="false" />
+        <activity
             android:name=".my_itemActivity"
             android:exported="false" />
-
         <activity
             android:name=".itemdetails_activity"
             android:exported="false" />
@@ -31,6 +33,16 @@
         <activity
             android:name=".HomeActivity"
             android:exported="false" />
+        <activity android:name=".RatingActivity" />
+        <activity
+            android:name=".AddCommentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ListPetsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".addPetActivity"
+            android:exported="false"/>
         <activity
             android:name=".RegisterActivity"
             android:exported="true">

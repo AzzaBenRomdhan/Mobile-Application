@@ -43,6 +43,7 @@ public class itemsActivity extends AppCompatActivity {
         Description = new ArrayList<>();
         price = new ArrayList<>();
 
+
         customAdapter = new CustomAdapter(itemsActivity.this,_id, product_title,Description,price);
         recyclerView.setAdapter(customAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(itemsActivity.this));
@@ -57,8 +58,9 @@ public class itemsActivity extends AppCompatActivity {
             while (cursor.moveToNext()){
                 _id.add(cursor.getString(0));
                 product_title.add(cursor.getString(1));
-                Description.add(cursor.getString(2));
-                price.add(cursor.getString(3));
+                price.add(cursor.getString(2));
+                Description.add(cursor.getString(3));
+
             }
         }
     }

@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class CustomAdapter extends RecyclerView .Adapter<CustomAdapter.MyViewHolder>{
      Context context;
-     ArrayList   _id, product_title, Description, price;
+     ArrayList   _id, product_title, Description, price, quantity;
     CustomAdapter customAdapter;
     Animation traslate_anim;
 
@@ -56,7 +56,7 @@ public class CustomAdapter extends RecyclerView .Adapter<CustomAdapter.MyViewHol
                 intent.putExtra("Description", String.valueOf(Description.get(position)));
                 intent.putExtra("price", String.valueOf(price.get(position)));
 
-                context.startActivity(intent);
+                    context.startActivity(intent);
             }}
         });
 
@@ -68,7 +68,7 @@ public class CustomAdapter extends RecyclerView .Adapter<CustomAdapter.MyViewHol
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView _id, product_title, Description, price;
+        TextView _id, product_title, Description, price, quantity;
         LinearLayout my_row;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
