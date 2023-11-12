@@ -1,10 +1,13 @@
 package org.esprit.registrationform;
 
+import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -23,7 +26,17 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_TITLE="product_title";
     private static final String COLUMN_DESCRIPTION="Description";
     private static final String COLUMN_PRICE= "price";
-
+// farouk
+// Table pour les réservations
+public static final String TABLE_NAME_RESERVATION = "add_reservation";
+    public static final String COLUMN_RESERVATION_ID = "_id";
+   // public static final String COLUMN_PET_NAME = "PetName";
+    public static final String COLUMN_RESERVATION_DATE_DEBUT = "startDate";
+    public static final String COLUMN_RESERVATION_DATE_FIN = "endDate";
+    //   public static final String COLUMN_RESERVATION_TIME = "ReservationTime";
+    public static final String COLUMN_DAYCARE_NAME = "DaycareName";
+    public static final String COLUMN_DAYCARE_DESCRIPTION = "DaycareDescription";
+    public static final String COLUMN_DAYCARE_PRICE = "DaycarePrice";
     //sirine
     // Nouvelle table comment
     public static final String TABLE_NAME_COMMENTAIRE = "add_commentaire";
@@ -39,6 +52,13 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_COLORPET = "Color";
     public static final String COLUMN_HEIGHTPET = "Height";
     public static final String COLUMN_WEIGHTPET = "Weight";
+    //salma
+    public static final String TABLE_USERS = "users";
+    public static final String COLUMN_ID_USER= "_id";
+    public static final String COLUMN_USERNAME = "username";
+    public static final String COLUMN_EMAIL = "email";
+    public static final String COLUMN_PASSWORD = "password";
+
 
     public MyDataBaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME,null, DATABASE_VERSION);
@@ -51,7 +71,10 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
         COLUMN_TITLE + " TEXT, " + COLUMN_DESCRIPTION + " TEXT, " + COLUMN_PRICE + " TEXT );";
         db.execSQL(query);
         // salma
-        String query2 = "CREATE TABLE users (username TEXT PRIMARY KEY, password TEXT);";
+        String query2 = "CREATE TABLE " + TABLE_USERS + " (" +
+                COLUMN_USERNAME + " TEXT PRIMARY KEY, " +
+                COLUMN_PASSWORD + " TEXT, " +
+                COLUMN_EMAIL + " TEXT);";
         db.execSQL(query2);
         //Sirine
         String query1 = "CREATE TABLE " + TABLE_NAME_PET + " (" + COLUMN_ID_PET + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -69,6 +92,17 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
                 COLUMN_COMMENTAIRE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_COMMENTAIRE_TEXT + " TEXT);";
         db.execSQL(queryCommentaire);
+        //farouk
+        // Ajouter cette partie pour créer la table des réservations
+        String queryReservation = "CREATE TABLE " + TABLE_NAME_RESERVATION + " (" +
+                COLUMN_RESERVATION_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                //   COLUMN_PET_NAME + " TEXT, " +
+                //   COLUMN_RESERVATION_DATE + " TEXT, " +
+                //    COLUMN_RESERVATION_TIME + " TEXT, " +
+                COLUMN_DAYCARE_NAME + " TEXT, " +
+                COLUMN_DAYCARE_DESCRIPTION + " TEXT, " +
+                COLUMN_DAYCARE_PRICE + " REAL);";
+        db.execSQL(queryReservation);
     }
 
     @Override
@@ -79,20 +113,22 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
         //sirine
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_PET);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_COMMENTAIRE);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_RESERVATION);
         onCreate(db);
     }
 
 // salma
-public Boolean insertData(String username, String password){
+public boolean insertData(String username, String password, String email) {
     SQLiteDatabase db = this.getWritableDatabase();
-    ContentValues contentValues= new ContentValues();
-    contentValues.put("username", username);
-    contentValues.put("password", password);
-    long result = db.insert("users", null, contentValues);
-    if(result==-1) return false;
-    else
-        return true;
+    ContentValues contentValues = new ContentValues();
+    contentValues.put(COLUMN_USERNAME, username);
+    contentValues.put(COLUMN_PASSWORD, password);
+    contentValues.put(COLUMN_EMAIL, email);
+    return db.insert(TABLE_USERS, null, contentValues) != -1;
 }
+
+//salma
+
 //salma
     public Boolean checkusername(String username) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -101,6 +137,13 @@ public Boolean insertData(String username, String password){
             return true;
         else
             return false;
+    }
+    //salma
+    // Function to delete a user account based on the username
+    public void deleteAccountClicked(String username) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("users", "username=?", new String[]{username});
+        db.close();
     }
 
     //salma
@@ -195,6 +238,16 @@ public Boolean insertData(String username, String password){
         }
         return cursor;
     }
+    //salma
+    Cursor readAlldataUser() {
+        String query = "SELECT * FROM " + TABLE_USERS;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = null;
+        if (db != null) {
+            cursor = db.rawQuery(query, null);
+        }
+        return cursor;
+    }
 
     Cursor readAllCommentaires() {
         String query = "SELECT * FROM " + TABLE_NAME_COMMENTAIRE;
@@ -224,6 +277,84 @@ public Boolean insertData(String username, String password){
 
         db.close();
     }
+//farouk
+public void addDaycareReservation(String daycareName, String daycareDescription, double daycarePrice) {
+    SQLiteDatabase db = this.getWritableDatabase();
+    ContentValues cv = new ContentValues();
+    //  cv.put(COLUMN_PET_NAME, petName);
+    //   cv.put(COLUMN_RESERVATION_DATE, reservationDate);
+    // cv.put(COLUMN_RESERVATION_TIME, reservationTime);
+    cv.put(COLUMN_DAYCARE_NAME, daycareName);
+    cv.put(COLUMN_DAYCARE_DESCRIPTION, daycareDescription);
+    cv.put(COLUMN_DAYCARE_PRICE, daycarePrice);
+    long result = db.insert(TABLE_NAME_RESERVATION, null, cv);
+    if (result == -1) {
+        Toast.makeText(context, "Failed to add daycare reservation", Toast.LENGTH_SHORT).show();
+    } else {
+        Toast.makeText(context, "Daycare reservation added successfully", Toast.LENGTH_SHORT).show();
+    }
+}
+    // Function to add daycare reservation to the database
+    public void addDaycare(String dayCare, String animalName, String startDate, String endDate) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN_DAYCARE_NAME, dayCare);
+        cv.put(COLUMN_NAME, animalName); // Assuming COLUMN_NAME represents the pet name
+        // Add other necessary columns like startDate and endDate
 
+        // Add the reservation to the database
+        long result = db.insert(TABLE_NAME_RESERVATION, null, cv);
+
+        // Check if the operation was successful
+        if (result == -1) {
+            Toast.makeText(context, "Failed to add daycare reservation", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "Daycare reservation added successfully", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    Cursor readAlldataDayCare() {
+        String query = "SELECT * FROM " + TABLE_NAME;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = null;
+        if (db != null) {
+            cursor = db.rawQuery(query, null);
+        }
+        return cursor;
+    }
+    public Cursor getAllReservations() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.query(TABLE_NAME_RESERVATION, null, null, null, null, null, null);
+    }
+
+
+
+
+    public void updateReservation(int reservationId, String newDate, String newDayCareName) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();values.put(COLUMN_DAYCARE_NAME, newDayCareName);
+        values.put(COLUMN_DAYCARE_PRICE, newDate);
+
+
+        String whereClause = COLUMN_RESERVATION_ID + "=?";
+        String[] whereArgs = {String.valueOf(reservationId)};
+
+        // Assurez-vous d'utiliser le bon nom de table dans la méthode update
+        db.update(TABLE_NAME_RESERVATION, values, whereClause, whereArgs);
+
+        db.close();
+    }
+
+
+
+    // Méthode pour supprimer une réservation
+    public void deleteReservation(int reservationId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME_RESERVATION, COLUMN_RESERVATION_ID + "=?", new String[]{String.valueOf(reservationId)});
+        db.close();
+    }
 
 }
+
+

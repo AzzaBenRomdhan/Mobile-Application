@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_login"
+    tools:context=".ReservationActivity">
+
+
+    <EditText
+        android:id="@+id/etDaycareName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="Daycare Name" />
+
+    <EditText
+        android:id="@+id/etDaycareDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etDaycareName"
+        android:layout_marginTop="16dp"
+        android:hint="Daycare Description" />
+
+    <EditText
+        android:id="@+id/etDaycarePrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etDaycareDescription"
+        android:layout_marginTop="16dp"
+        android:inputType="numberDecimal"
+        android:hint="Daycare Price" />
+
+    <Button
+        android:id="@+id/btnAddReservation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etDaycarePrice"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="54dp"
+        android:layout_marginEnd="153dp"
+        android:backgroundTint="@color/rose"
+        android:fontFamily="@font/fredoka_one"
+        android:text="Add Daycare " />
+
+</RelativeLayout>

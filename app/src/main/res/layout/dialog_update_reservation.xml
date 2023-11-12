@@ -1,0 +1,20 @@
+<!-- dialog_update_reservation.xml -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/editTextReservationPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="New daycare price"/>
+
+    <EditText
+        android:id="@+id/editTextDayCareName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Neww daycare name"/>
+
+</LinearLayout>

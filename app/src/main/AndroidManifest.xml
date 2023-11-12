@@ -13,6 +13,18 @@
         android:theme="@style/Theme.RegistrationForm"
         tools:targetApi="31">
         <activity
+            android:name=".ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CalendrierActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ReservationListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ReservationActivity"
+            android:exported="false" />
+        <activity
             android:name=".CartActivity"
             android:exported="false" />
         <activity
@@ -42,7 +54,7 @@
             android:exported="false" />
         <activity
             android:name=".addPetActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".RegisterActivity"
             android:exported="true">
