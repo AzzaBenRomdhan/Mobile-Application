@@ -37,6 +37,7 @@ public class AddCommentActivity extends AppCompatActivity {
                 addComment();
             }
         });
+        
     }
 
     private void addComment() {
