@@ -19,7 +19,7 @@ import java.util.List;
 public class MyDataBaseHelper extends SQLiteOpenHelper {
     private Context context;
     private static final String DATABASE_NAME= "Pet.db";
-    private static final int DATABASE_VERSION= 50;
+    private static final int DATABASE_VERSION= 55;
     private static final String TABLE_NAME= "my_Product";
     //sirirne
     public static final String TABLE_NAME_PET = "add_pet";
@@ -38,6 +38,16 @@ public static final String TABLE_NAME_RESERVATION = "add_reservation";
     public static final String COLUMN_DAYCARE_NAME = "DaycareName";
     public static final String COLUMN_DAYCARE_DESCRIPTION = "DaycareDescription";
     public static final String COLUMN_DAYCARE_PRICE = "DaycarePrice";
+
+    //
+    //farouk
+// Table pour les réservations
+    public static final String TABLE_NAME_DAYCARE_RESERVATION = "daycare_reservations";
+    public static final String COLUMN_DAYCARE_ID = "_id";
+    public static final String COLUMN_DAYCARE1_NAME = "daycare_name";
+    public static final String COLUMN_PET_NAME_1 = "pet_name";
+    public static final String COLUMN_START_DATE = "start_date";
+    public static final String COLUMN_END_DATE = "end_date";
     //sirine
     // Nouvelle table comment
     public static final String TABLE_NAME_COMMENTAIRE = "add_commentaire";
@@ -103,7 +113,18 @@ public static final String TABLE_NAME_RESERVATION = "add_reservation";
                 COLUMN_DAYCARE_DESCRIPTION + " TEXT, " +
                 COLUMN_DAYCARE_PRICE + " REAL);";
         db.execSQL(queryReservation);
+        //farouk
+        // Ajouter cette partie pour créer la table des réservations de garderie
+        String queryDaycareReservation = "CREATE TABLE " + TABLE_NAME_DAYCARE_RESERVATION + " (" +
+                COLUMN_RESERVATION_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_DAYCARE_NAME + " TEXT, " +
+                COLUMN_PET_NAME_1 + " TEXT, " +
+                COLUMN_START_DATE + " TEXT, " +
+                COLUMN_END_DATE + " TEXT);";
+        db.execSQL(queryDaycareReservation);
     }
+
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
@@ -328,15 +349,16 @@ public void addDaycareReservation(String daycareName, String daycareDescription,
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(COLUMN_DAYCARE_NAME, dayCare);
-        cv.put(COLUMN_NAME, animalName); // Assuming COLUMN_NAME represents the pet name
-        // Add other necessary columns like startDate and endDate
+        cv.put(COLUMN_PET_NAME_1, animalName);
+        cv.put(COLUMN_START_DATE, startDate);
+        cv.put(COLUMN_END_DATE, endDate);
 
         // Add the reservation to the database
-        long result = db.insert(TABLE_NAME_RESERVATION, null, cv);
+        long result = db.insert(TABLE_NAME_DAYCARE_RESERVATION, null, cv);
 
         // Check if the operation was successful
         if (result == -1) {
-            Toast.makeText(context, "Failed to add daycare reservation", Toast.LENGTH_SHORT).show();
+
         } else {
             Toast.makeText(context, "Daycare reservation added successfully", Toast.LENGTH_SHORT).show();
         }
@@ -356,7 +378,11 @@ public void addDaycareReservation(String daycareName, String daycareDescription,
         return db.query(TABLE_NAME_RESERVATION, null, null, null, null, null, null);
     }
 
-
+    // Méthode pour récupérer toutes les réservations de garderie
+    public Cursor getAllDaycareReservations() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.query(TABLE_NAME_DAYCARE_RESERVATION, null, null, null, null, null, null);
+    }
 
 
     public void updateReservation(int reservationId, String newDate, String newDayCareName) {
