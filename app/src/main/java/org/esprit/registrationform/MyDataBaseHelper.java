@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -410,6 +411,65 @@ public void addDaycareReservation(String daycareName, String daycareDescription,
         db.delete(TABLE_NAME_RESERVATION, COLUMN_RESERVATION_ID + "=?", new String[]{String.valueOf(reservationId)});
         db.close();
     }
+
+    public ArrayList<String> getAllComments() {
+        ArrayList<String> commentsList = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // Correction ici, utilisez le bon nom de table
+        String selectQuery = "SELECT * FROM " + TABLE_NAME_COMMENTAIRE;
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // Parcourir le curseur et ajouter les commentaires à la liste
+        if (cursor.moveToFirst()) {
+            do {
+                // Correction ici, utilisez la bonne colonne
+                String comment = cursor.getString(cursor.getColumnIndex(COLUMN_COMMENTAIRE_TEXT));
+                commentsList.add(comment);
+            } while (cursor.moveToNext());
+        }
+
+        // Fermer le curseur
+        cursor.close();
+
+        // Fermer la base de données
+        db.close();
+
+        return commentsList;
+    }
+    public void deleteComment(String comment) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // Utilisez la méthode delete avec la clause where directement
+        int rowsDeleted = db.delete(TABLE_NAME_COMMENTAIRE, COLUMN_COMMENTAIRE_TEXT + "=?", new String[]{comment});
+
+        // Ajoutez des journaux pour déboguer
+        Log.d("MyDataBaseHelper", "Deleting comment: " + comment);
+        Log.d("MyDataBaseHelper", "Rows deleted: " + rowsDeleted);
+
+        db.close();
+    }
+    public void updateComment(String oldComment, String newComment) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_COMMENTAIRE_TEXT, newComment);
+
+        String whereClause = COLUMN_COMMENTAIRE_TEXT + "=?";
+        String[] whereArgs = {oldComment};
+
+        // Utilisez la méthode update pour mettre à jour le commentaire
+        int rowsUpdated = db.update(TABLE_NAME_COMMENTAIRE, values, whereClause, whereArgs);
+
+        // Ajoutez des journaux pour déboguer
+        Log.d("MyDataBaseHelper", "Updating comment: " + oldComment + " to " + newComment);
+        Log.d("MyDataBaseHelper", "Rows updated: " + rowsUpdated);
+
+        db.close();
+    }
+
 
 }
 
