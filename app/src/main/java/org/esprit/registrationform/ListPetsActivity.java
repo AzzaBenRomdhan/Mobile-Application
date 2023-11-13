@@ -38,18 +38,18 @@ public class ListPetsActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                 // Show a dialog for actions (update or delete)
                 AlertDialog.Builder builder = new AlertDialog.Builder(ListPetsActivity.this);
-                builder.setMessage("Que souhaitez-vous faire?");
-                builder.setPositiveButton("Supprimer", new DialogInterface.OnClickListener() {
+                builder.setMessage("What do you want to do?");
+                builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // Logic for deleting the item from the database and updating the list
                         deletePetDialog(position);
                     }
                 });
-                builder.setNegativeButton("Annuler", null);
+                builder.setNegativeButton("Cancel", null);
 
                 // Add a button for updating the pet
-                builder.setNeutralButton("Mettre à jour", new DialogInterface.OnClickListener() {
+                builder.setNeutralButton("Update", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // Call the updatePetDialog method when the user chooses to update
@@ -87,7 +87,7 @@ public class ListPetsActivity extends AppCompatActivity {
     // Method to show a dialog for updating pet information
     private void updatePetDialog(final int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Mise à jour du pet");
+        builder.setTitle("Update");
 
         // Create a layout for the dialog with two text fields for name and breed
         View view = getLayoutInflater().inflate(R.layout.dialog_update_pet, null);
@@ -96,7 +96,7 @@ public class ListPetsActivity extends AppCompatActivity {
 
         builder.setView(view);
 
-        builder.setPositiveButton("Mettre à jour", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Update", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // Get the new values entered by the user
@@ -113,7 +113,7 @@ public class ListPetsActivity extends AppCompatActivity {
             }
         });
 
-        builder.setNegativeButton("Annuler", null);
+        builder.setNegativeButton("Cancel", null);
 
         builder.show();
     }
@@ -121,8 +121,8 @@ public class ListPetsActivity extends AppCompatActivity {
     // Method to show a dialog for confirming pet deletion
     private void deletePetDialog(final int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(ListPetsActivity.this);
-        builder.setMessage("Voulez-vous vraiment supprimer ce pet?");
-        builder.setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+        builder.setMessage("Do you want to delete the pet?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // Delete the item from the database
@@ -134,7 +134,7 @@ public class ListPetsActivity extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
             }
         });
-        builder.setNegativeButton("Non", null);
+        builder.setNegativeButton("No", null);
         builder.show();
     }
 }

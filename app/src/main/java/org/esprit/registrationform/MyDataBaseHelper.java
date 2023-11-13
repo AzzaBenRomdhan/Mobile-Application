@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -54,7 +55,6 @@ public static final String TABLE_NAME_RESERVATION = "add_reservation";
     public static final String COLUMN_WEIGHTPET = "Weight";
     //salma
     public static final String TABLE_USERS = "users";
-    public static final String COLUMN_ID_USER= "_id";
     public static final String COLUMN_USERNAME = "username";
     public static final String COLUMN_EMAIL = "email";
     public static final String COLUMN_PASSWORD = "password";
@@ -140,7 +140,9 @@ public boolean insertData(String username, String password, String email) {
     }
     //salma
     // Function to delete a user account based on the username
-    public void deleteAccountClicked(String username) {
+    public void deleteAccount(String username) {
+        Log.d("DeleteAccount", "Deleting account from database: " + username);  // Add this log statement
+
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete("users", "username=?", new String[]{username});
         db.close();
@@ -277,7 +279,34 @@ public boolean insertData(String username, String password, String email) {
 
         db.close();
     }
-//farouk
+    //salma
+    // Update user information in the database
+    public void updateProfile(String currentUsername, String newName, String newMail, String newPwd) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_USERNAME, newName);
+        values.put(COLUMN_EMAIL, newMail);
+        values.put(COLUMN_PASSWORD, newPwd);
+
+        String whereClause = COLUMN_USERNAME + "=?";
+        String[] whereArgs = {currentUsername}; // Use the current username as the selection argument
+
+        // Update the user in the database
+        int rowsAffected = db.update(TABLE_USERS, values, whereClause, whereArgs);
+
+        // Check if the update was successful
+        if (rowsAffected > 0) {
+            Toast.makeText(context, "User updated successfully", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "Failed to update user", Toast.LENGTH_SHORT).show();
+        }
+
+        db.close();
+    }
+
+
+    //farouk
 public void addDaycareReservation(String daycareName, String daycareDescription, double daycarePrice) {
     SQLiteDatabase db = this.getWritableDatabase();
     ContentValues cv = new ContentValues();

@@ -121,6 +121,7 @@
         app:srcCompat="@drawable/mail" />
 
     <Button
+
         android:id="@+id/delete_account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
