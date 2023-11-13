@@ -20,6 +20,7 @@ import java.util.List;
 public class AddCommentActivity extends AppCompatActivity {
 
     private static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 1;
+   // private static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 1;
 
     private EditText editTextComment;
     private Button buttonAddComment;
