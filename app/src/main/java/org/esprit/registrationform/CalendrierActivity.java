@@ -1,5 +1,6 @@
 package org.esprit.registrationform;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -44,6 +45,8 @@ public class CalendrierActivity extends AppCompatActivity {
 
         // Initialize the database helper
         dbHelper = new MyDataBaseHelper(this);
+
+        //
 
         // Add a listener to detect date selections
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
@@ -103,11 +106,12 @@ public class CalendrierActivity extends AppCompatActivity {
                     // Show success message
                     Snackbar.make(v, "Reservation successfully added", Snackbar.LENGTH_SHORT).show();
 
-                    // Optionally, you can clear the input fields or perform any other actions after adding the reservation
-                    // clearInputFields();
+                    // Redirect to AfficheListCalenderActivity
+                    startActivity(new Intent(CalendrierActivity.this, AfficheListCalenderActivity.class));
                 }
             }
         });
+
     }
 
     private void setInitialDates() {
